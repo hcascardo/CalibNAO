@@ -9,7 +9,7 @@ def draw(img, corners, imgpts):
     return img
 
 axis = np.float32([[3,0,0], [0,3,0], [0,0,-3]]).reshape(-1,3)*28.22 #28.22mm squares
-images = glob.glob('*.jpg') #get all image (.jpeg) names in folder 
+images = glob.glob('*.jpg') #get all image (.jpeg) names in folder
 nimg = len(images)
 # prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(9,6,0)
 objp = np.zeros((9*6,3), np.float32)
@@ -56,7 +56,6 @@ for fname in images:
         img = cv2.drawChessboardCorners(img, (9,6), corners2,ret)
         cv2.imshow('img',img)
         cv2.waitKey(0)
-        
 cv2.destroyAllWindows()
 print '- - - ESTIMATING CAMERA PARAMETERS - - -'
 print 'Total:', c, 'images'
@@ -65,7 +64,7 @@ print ('Calibration Matrix: ')
 print
 print mtx
 np.savetxt('calibmat', mtx, delimiter="; ")
-print 
+print
 print ('Distortion Coeficients: ')
 print
 print dist
@@ -149,7 +148,7 @@ while True:
             theta3_lleg = memProxy.getData("Device/SubDeviceList/LHipPitch/Position/Sensor/Value")
             theta4_lleg = memProxy.getData("Device/SubDeviceList/LKneePitch/Position/Sensor/Value")
             theta5_lleg = memProxy.getData("Device/SubDeviceList/LAnklePitch/Position/Sensor/Value")
-            theta6_lleg = memProxy.getData("Device/SubDeviceList/LAnkleRoll/Position/Sensor/Value")            
+            theta6_lleg = memProxy.getData("Device/SubDeviceList/LAnkleRoll/Position/Sensor/Value")
 
             sensormatrix = np.array([[theta1_head],[theta2_head],[theta1_lleg],[theta2_lleg],[theta3_lleg],[theta4_lleg],[theta5_lleg],[theta6_lleg]])
             #print sensormatrix
@@ -161,15 +160,14 @@ while True:
             point = np.dot(point,rvecs) + np.matrix.transpose(tvecs)
             Z = point[0,2]
             print "Distance estimate: ", Z
- 
-            #center = (int(np.round(point[0,1])),int(np.round(point[0,0])))
+
+             #center = (int(np.round(point[0,1])),int(np.round(point[0,0])))
             #img = cv2.circle(img,center, 5, (0,200,0), -1)
             #for i in range(0,54):  
             #    point = np.dot(objp[i],rvecs) + np.matrix.transpose(tvecs)
             #    Z[i] = point[0,2] #Z-value to mm
             #    center = (int(np.round(point[0,1])),int(np.round(point[0,0])))
             #    img = cv2.circle(img,center, 5, (0,100,100), -1)
-            
             # project 3D points to image plane
             imgpts, jac = cv2.projectPoints(axis, rvecs, tvecs, mtx, dist)
 
