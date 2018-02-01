@@ -9,7 +9,7 @@ def draw(img, corners, imgpts):
     return img
 
 axis = np.float32([[3,0,0], [0,3,0], [0,0,-3]]).reshape(-1,3)*28.22 #28.22mm squares
-images = glob.glob('*.jpg')                                         #get all image (.jpeg) names in folder 
+images = glob.glob('*.jpg') #get all image (.jpeg) names in folder 
 nimg = len(images)
 # prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(9,6,0)
 objp = np.zeros((9*6,3), np.float32)
@@ -22,7 +22,7 @@ imgpoints = [] # 2d points in image plane.
 c=0
 ip_addr = ('169.254.37.37') #Ethernet
 #ip_addr = ('192.168.0.109') #Wi-Fi
-port_num = 9559            
+port_num = 9559
 
 # get NAOqi module proxys
 memProxy = ALProxy("ALMemory",ip_addr,port_num)
@@ -56,13 +56,13 @@ for fname in images:
         img = cv2.drawChessboardCorners(img, (9,6), corners2,ret)
         cv2.imshow('img',img)
         cv2.waitKey(0)
-       
+        
 cv2.destroyAllWindows()
 print '- - - ESTIMATING CAMERA PARAMETERS - - -'
 print 'Total:', c, 'images'
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
 print ('Calibration Matrix: ')
-print 
+print
 print mtx
 np.savetxt('calibmat', mtx, delimiter="; ")
 print 
@@ -114,7 +114,7 @@ while True:
                 image.itemset((y, x, 2), values[i + 2])
                 i += 3
         imgraw = image
-        # exit by [ESC]  
+        # exit by [ESC]
         if cv2.waitKey(10) == 27:
             cv2.destroyAllWindows()
             break
@@ -124,7 +124,7 @@ while True:
         ret, corners = cv2.findChessboardCorners(gray, (9,6), None)
         # If found, add object points, image points (after refining them)
         if ret == True:
-            img = imgraw            
+            img = imgraw
             objpoints.append(objp)
             corners2 = cv2.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
             _, rvecs, tvecs, inliers  = cv2.solvePnPRansac(objp, corners2, mtx, dist)
