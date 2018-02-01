@@ -172,7 +172,6 @@ while True:
 
             #cv2.drawChessboardCorners(image, (9, 6), corners, ret)
             img = draw(img, corners2, imgpts)
-            
             cv2.waitKey(10)
             cv2.imshow('img', img)
             #cv2.imshow('imgRaw', imgraw)
