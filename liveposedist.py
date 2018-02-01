@@ -139,7 +139,6 @@ while True:
             theta4_lleg = 0      #LKneePitch
             theta5_lleg = 0      #LAnklePitch
             theta6_lleg = 0      #LAnkleRoll
-            
 #Get all sensor values for calibration
             theta1_head = memProxy.getData("Device/SubDeviceList/HeadYaw/Position/Sensor/Value")
             theta2_head = memProxy.getData("Device/SubDeviceList/HeadPitch/Position/Sensor/Value")
@@ -163,7 +162,7 @@ while True:
 
              #center = (int(np.round(point[0,1])),int(np.round(point[0,0])))
             #img = cv2.circle(img,center, 5, (0,200,0), -1)
-            #for i in range(0,54):  
+            #for i in range(0,54):
             #    point = np.dot(objp[i],rvecs) + np.matrix.transpose(tvecs)
             #    Z[i] = point[0,2] #Z-value to mm
             #    center = (int(np.round(point[0,1])),int(np.round(point[0,0])))
