@@ -129,8 +129,19 @@ while True:
             _, rvecs, tvecs, inliers  = cv2.solvePnPRansac(objp, corners2, mtx, dist)
             imgpoints.append(corners2)
             rvecs,jacobian = cv2.Rodrigues(rvecs) #from R-vector to R-matrix
+            #||
+            #ToDo
+            #
+            #Levemberg-Marquadt algorithm (under progress on matlab) results
+            #allow direct drive the joints to place the end effector at some world coordinates 
+            #use the vision systems to check resulting coordinates
+            #Levemberg-Maquadt optimization
+            #Confirm joint angle errors doing direct drive -> computer vision check of resulting coordinates
+            #print "Robot Successfully Calibrated!"
+            #
+            #||
 
-#Initialize all sensor variables
+#Initialize all sensor variables || ToDo script this to recursively access table with sensor names/numbers
             theta1_head = 0      #HeadYaw
             theta2_head = 0      #HeadPitch
             theta1_lleg = 0      #LHipYawPitch
@@ -139,7 +150,7 @@ while True:
             theta4_lleg = 0      #LKneePitch
             theta5_lleg = 0      #LAnklePitch
             theta6_lleg = 0      #LAnkleRoll
-#Get all sensor values for calibration
+#Get all sensor values for calibration  || ToDo script this to recursively access table with sensor addresses
             theta1_head = memProxy.getData("Device/SubDeviceList/HeadYaw/Position/Sensor/Value")
             theta2_head = memProxy.getData("Device/SubDeviceList/HeadPitch/Position/Sensor/Value")
             theta1_lleg = memProxy.getData("Device/SubDeviceList/LHipYawPitch/Position/Sensor/Value")
